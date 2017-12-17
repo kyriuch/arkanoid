@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArkanoidReplica.Sprites;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace ArkanoidReplica
 {
@@ -9,12 +12,17 @@ namespace ArkanoidReplica
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+        Player player;
+        Ball ball;
+        List<Spirte> sprites;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 600;
             Content.RootDirectory = "Content";
         }
 
@@ -27,6 +35,7 @@ namespace ArkanoidReplica
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            sprites = new List<Spirte>();
 
             base.Initialize();
         }
@@ -41,6 +50,41 @@ namespace ArkanoidReplica
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            player = new Player
+            {
+                Color = Color.White,
+                Left = Keys.Left,
+                Right = Keys.Right,
+                Ability = Keys.Space,
+                Position = new Vector2(300, 800),
+                Scale = new Vector2(3.0f, 3.0f),
+                Speed = new Vector2(10, 0),
+                Texture = Content.Load<Texture2D>("VausSpacecraft")
+            };
+            player.CaculateMaxVector();
+            sprites.Add(player);
+
+            Random random = new Random();
+
+            Vector2 ballVelocityVector = new Vector2(random.Next(2, 5) * (random.Next(2) == 1 ? 1 : -1), random.Next(2, 5)*(-1));
+            ballVelocityVector.Normalize();
+            ballVelocityVector *= 5;
+
+            ball = new Ball
+            {
+                Color = Color.White,
+                Texture = Content.Load<Texture2D>("ball"),
+                Start = Keys.Space,
+                Position = new Vector2(player.Position.X, player.Position.Y - player.Texture.Height-40),
+                Scale = new Vector2(0.05f, 0.05f),
+                Speed = Vector2.Zero,
+                Velocity = ballVelocityVector,
+                player = player
+            };
+            sprites.Add(ball);
+            ball.CaculateMaxVector();
+
+
         }
 
         /// <summary>
@@ -64,6 +108,11 @@ namespace ArkanoidReplica
 
             // TODO: Add your update logic here
 
+            foreach (var sprite in sprites)
+            {
+                sprite.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -76,6 +125,14 @@ namespace ArkanoidReplica
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            foreach (var sprite in sprites)
+            {
+                sprite.Draw(gameTime, spriteBatch);
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
