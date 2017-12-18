@@ -57,9 +57,9 @@ namespace ArkanoidReplica
                 Right = Keys.Right,
                 Ability = Keys.Space,
                 Position = new Vector2(300, 800),
-                Scale = new Vector2(3.0f, 3.0f),
+                Scale = new Vector2(1.0f, 1.0f),
                 Speed = new Vector2(10, 0),
-                Texture = Content.Load<Texture2D>("VausSpacecraft")
+                Texture = Content.Load<Texture2D>("VausSpacecraft2")
             };
             player.CaculateMaxVector();
             sprites.Add(player);
@@ -75,13 +75,14 @@ namespace ArkanoidReplica
                 Color = Color.White,
                 Texture = Content.Load<Texture2D>("ball"),
                 Start = Keys.Space,
-                Position = new Vector2(player.Position.X, player.Position.Y - player.Texture.Height-40),
-                Scale = new Vector2(0.05f, 0.05f),
+                Position = new Vector2(player.Position.X, player.Position.Y - player.Texture.Height-36),
+                Scale = new Vector2(1.0f, 1.0f),
                 Speed = Vector2.Zero,
                 Velocity = ballVelocityVector,
                 player = player
             };
             sprites.Add(ball);
+            Console.WriteLine(player.Texture.Height + " " + player.Texture.Width);
             ball.CaculateMaxVector();
 
 

@@ -17,21 +17,33 @@ namespace ArkanoidReplica.Sprites
 
         public void reset()
         {
-            Position = new Vector2(player.Position.X, player.Position.Y - Texture.Height / 2);
+            Position = new Vector2(player.Position.X, player.Position.Y - 100);
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if (Position.X <= 0 || Position.X >= Game1.graphics.GraphicsDevice.PresentationParameters.Bounds.Width - 35)
+            if (Position.X <= 0 || Position.X >= Game1.graphics.GraphicsDevice.PresentationParameters.Bounds.Width - Texture.Height)
             {
                 Velocity = new Vector2(Velocity.X * (-1), Velocity.Y);
             }
 
-            if (Position.Y <= 0 || Position.Y >= Game1.graphics.GraphicsDevice.PresentationParameters.Bounds.Height - 35)
+            if (Position.Y <= 0 || Position.Y >= Game1.graphics.GraphicsDevice.PresentationParameters.Bounds.Height - Texture.Height)
             {
                 Velocity = new Vector2(Velocity.X, Velocity.Y * (-1));
+            }
+
+            if (Position.Y + Texture.Height >= player.Position.Y)
+            {
+                if (Position.X + Texture.Width >= player.Position.X && Position.X <= player.Position.X + player.Texture.Width)
+                {
+                    Velocity = new Vector2(Velocity.X, Velocity.Y * (-1));
+                }
+                else
+                {
+                     
+                }
             }
 
             
