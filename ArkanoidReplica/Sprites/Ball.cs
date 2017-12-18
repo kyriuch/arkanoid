@@ -10,14 +10,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ArkanoidReplica.Sprites
 {
-    public class Ball : Spirte
+    public class Ball : Sprite
     {
-        public Spirte player { get; set; }
+        public Sprite Player { get; set; }
         public Keys Start { get; set; }
 
         public void reset()
         {
-            Position = new Vector2(player.Position.X, player.Position.Y - 100);
+            Position = new Vector2(Player.Position.X, Player.Position.Y - 100);
         }
 
         public override void Update(GameTime gameTime)
@@ -34,15 +34,11 @@ namespace ArkanoidReplica.Sprites
                 Velocity = new Vector2(Velocity.X, Velocity.Y * (-1));
             }
 
-            if (Position.Y + Texture.Height >= player.Position.Y)
+            if (Position.Y + Texture.Height >= Player.Position.Y)
             {
-                if (Position.X + Texture.Width >= player.Position.X && Position.X <= player.Position.X + player.Texture.Width)
+                if (Position.X + Texture.Width >= Player.Position.X && Position.X <= Player.Position.X + Player.Texture.Width)
                 {
                     Velocity = new Vector2(Velocity.X, Velocity.Y * (-1));
-                }
-                else
-                {
-                     
                 }
             }
 

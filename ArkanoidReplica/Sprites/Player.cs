@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace ArkanoidReplica.Sprites
 {
-    public class Player : Spirte
+    public class Player : Sprite
     {
         public Keys Left { get; set; }
         public Keys Right { get; set; }

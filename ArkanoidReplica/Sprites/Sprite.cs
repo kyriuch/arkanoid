@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ArkanoidReplica.Sprites
 {
-    public class Spirte
+    public class Sprite
     {
         public Texture2D Texture { get; set; }
         public Vector2 Position { get; set; }
@@ -37,8 +37,8 @@ namespace ArkanoidReplica.Sprites
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Position, null, null, null, 0, Scale, Color);
+		{
+			spriteBatch.Draw(Texture, Position, new Rectangle(0, 0, (int)(Texture.Width * Scale.X), (int)(Texture.Height * Scale.Y)), Color); 
         }
 
     }

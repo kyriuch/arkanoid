@@ -16,7 +16,7 @@ namespace ArkanoidReplica
         SpriteBatch spriteBatch;
         Player player;
         Ball ball;
-        List<Spirte> sprites;
+        List<Sprite> sprites;
 
         public Game1()
         {
@@ -35,7 +35,7 @@ namespace ArkanoidReplica
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            sprites = new List<Spirte>();
+            sprites = new List<Sprite>();
 
             base.Initialize();
         }
@@ -59,7 +59,7 @@ namespace ArkanoidReplica
                 Position = new Vector2(300, 800),
                 Scale = new Vector2(1.0f, 1.0f),
                 Speed = new Vector2(10, 0),
-                Texture = Content.Load<Texture2D>("VausSpacecraft2")
+                Texture = Content.Load<Texture2D>("VausSpacecraftLarge2")
             };
             player.CaculateMaxVector();
             sprites.Add(player);
@@ -79,7 +79,7 @@ namespace ArkanoidReplica
                 Scale = new Vector2(1.0f, 1.0f),
                 Speed = Vector2.Zero,
                 Velocity = ballVelocityVector,
-                player = player
+                Player = player
             };
             sprites.Add(ball);
             Console.WriteLine(player.Texture.Height + " " + player.Texture.Width);
@@ -123,7 +123,7 @@ namespace ArkanoidReplica
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
